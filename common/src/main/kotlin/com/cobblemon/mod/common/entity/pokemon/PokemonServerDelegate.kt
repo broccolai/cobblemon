@@ -60,6 +60,8 @@ class PokemonServerDelegate : PokemonSideDelegate {
         if (moving.walk.canWalk && moving.fly.canFly) {
             entity.setPathfindingPenalty(PathNodeType.WALKABLE, 0F)
         }
+
+        entity.navigation.setCanPathThroughFire(entity.isFireImmune)
     }
 
     fun updateMaxHealth() {

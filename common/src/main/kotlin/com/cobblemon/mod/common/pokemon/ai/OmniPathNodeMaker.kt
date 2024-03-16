@@ -46,6 +46,8 @@ import net.minecraft.world.chunk.ChunkCache
 class OmniPathNodeMaker : PathNodeMaker() {
     private val nodePosToType: Long2ObjectMap<PathNodeType> = Long2ObjectOpenHashMap()
 
+    var canPathThroughFire: Boolean = false
+
     override fun init(cachedWorld: ChunkCache, entity: MobEntity) {
         super.init(cachedWorld, entity)
         nodePosToType.clear()
@@ -333,7 +335,7 @@ class OmniPathNodeMaker : PathNodeMaker() {
             return PathNodeType.DANGER_OTHER
         }
 
-        if (LandPathNodeMaker.inflictsFireDamage(blockState) && !entity.isFireImmune) {
+        if (LandPathNodeMaker.inflictsFireDamage(blockState) && !this.canPathThroughFire) {
             return PathNodeType.DANGER_FIRE
         }
 
